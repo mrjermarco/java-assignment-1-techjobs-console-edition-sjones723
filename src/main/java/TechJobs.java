@@ -10,7 +10,7 @@ public class TechJobs {
 
     static Scanner in = new Scanner(System.in);
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
@@ -34,13 +34,15 @@ public class TechJobs {
 
             String actionChoice = getUserSelection("View jobs by (type 'x' to quit):", actionChoices);
 
-            if (actionChoice == null) { break;}
-            else if (actionChoice.equals("list")) {
+            if (actionChoice == null) {
+                break;
+            } else if (actionChoice.equals("list")) {
 
                 String columnChoice = getUserSelection("List", columnChoices);
 
-                if (columnChoice.equals("all")) { printJobs(JobData.findAll());}
-                else {
+                if (columnChoice.equals("all")) {
+                    printJobs(JobData.findAll());
+                } else {
                     ArrayList<String> results = JobData.findAll(columnChoice);
                     System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
 
@@ -110,7 +112,7 @@ public class TechJobs {
                 validChoice = true;
             }
 
-        } while(!validChoice);
+        } while (!validChoice);
 
         return choiceKeys[choiceIdx];
     }       //getUserSettings method
@@ -118,51 +120,31 @@ public class TechJobs {
     // Print a list of jobs
     //iterating over arraylist and accessing values with get("key")
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-        //No values check
 
-        if(someJobs.isEmpty()){ System.out.print("No Results");}
-        // check count - System.out.println(someJobs.size());
-        //using 2 for loops to open the aray list and access the
-        for(HashMap<String, String> element:someJobs){
-            System.out.println("\n*****");
-            //testing if key only can be used
-            for (String key : element.keySet()) {
 
-                System.out.println(key + ": " + element.get(key));
+        if (someJobs.isEmpty()) {
+            System.out.print("No Results");
+        } else {
+
+            for (HashMap<String, String> job : someJobs) {
+
+                System.out.println("\n*****");
+
+                for (Map.Entry< String, String> jobColumn:
+                job.entrySet()){
+
+                    String jobInfo = jobColumn.getKey() + ":" + jobColumn.getValue() + "\n";
+
+                    System.out.println(jobInfo);
+                }
+
+
+                System.out.print("*****\n");
+
+
             }
 
-//            for (Map.Entry<String, String> job : element.entrySet()) {
-//
-//                System.out.println(job.getKey() + ": " + job.getValue());
-//            }
-            System.out.print("*****\n");
+        }
+    }
 
-            //output sanity tests
-            /*
-            // System.out.println(someJobs);
-            // System.out.println(element);
-            //System.out.println(element.getClass());
-            //System.out.println(element.toString());
-            //System.out.println(element.get("position type"));
-
-             */
-/*
-            System.out.format(
-                    "\n*****\n" +
-                    "position type: %s\n" +
-                    "name: %s\n" +
-                    "employer: %s\n" +
-                    "location: %s\n" +
-                    "core competency: %s\n" +
-                    "*****\n",
-                    element.get("position type"),
-                    element.get("name"),
-                    element.get("employer"),
-                    element.get("location"),
-                    element.get("core competency")
-
-            );      // sout format*/
-        }       // for element:someJobs
-
-    }       // printJobs Method
 }

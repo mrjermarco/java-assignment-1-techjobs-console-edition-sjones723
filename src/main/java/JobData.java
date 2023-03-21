@@ -26,7 +26,7 @@ public class JobData {
      * without duplicates, for a given column.
      *
      * @param field The column to retrieve values from
-     * @return List of all of the values of the given field
+     * @return List of all the values of the given field
      */
     public static ArrayList<String> findAll(String field) {
 
@@ -80,7 +80,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.toString().toLowerCase().contains(value.toLowerCase())) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -101,24 +101,18 @@ public class JobData {
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
-            //testing for transformed output
-            /*System.out.println("*********"+row.toString().toLowerCase().contains(value.toLowerCase())+"*********");
-            prev - if(row.containsValue(value)){
 
-             */
+            for (String key : row.keySet()) {
+                String aValue = row.get(key);
 
-            if(row.toString().toLowerCase().contains(value.toLowerCase())){
-                jobs.add(row);
+                if (aValue.toLowerCase().contains(value.toLowerCase())){
+                    jobs.add(row);
 
+                    break;
+                }
             }
-            /*
-            System.out.println("**********************");
-            System.out.println(row);
-            **********************
-            {position type=Data Scientist / Business Intelligence, name=Junior Data Analyst, employer=Lockerdome, location=Saint Louis, core competency=Statistical Analysis}
-             **********************
-             */
-            }
+
+        }
         return jobs;
     }
 
